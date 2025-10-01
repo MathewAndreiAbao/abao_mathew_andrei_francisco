@@ -25,12 +25,8 @@ class NotesController extends Controller {
         $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
         $search = trim($_GET['search'] ?? '');
 
-        // Fetch paginated results based on role
-        if ($role === 'admin') {
-            $result = $this->noteModel->findAll($page, 6, $search);
-        } else {
-            $result = $this->noteModel->findAllByUser($user_id, $page, 6, $search);
-        }
+        // Fetch paginated results for all notes, regardless of role
+        $result = $this->noteModel->findAll($page, 6, $search);
 
         $this->call->view('index', [
             'notes' => $result['data'],
