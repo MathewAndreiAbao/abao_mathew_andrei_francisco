@@ -50,9 +50,9 @@ Class Io {
 	private $_enable_csrf = FALSE;
 
 	/**
-	 * Securty instance
+	 * Security instance
 	 *
-	 * @var class
+	 * @var Security
 	 */
 	private $security;
 
@@ -110,10 +110,11 @@ Class Io {
   	/**
   	 * POST Variable
   	 *
-  	 * @param  string
+  	 * @param  string $index
+  	 * @param  mixed $default
   	 * @return string
   	 */
-	public function post($index = NULL)
+	public function post($index = NULL, $default = NULL)
 	{
 		if($index === NULL && !empty($_POST)) {
 			$post = array();
@@ -122,16 +123,17 @@ Class Io {
 			}
 			return $post;
 		}
-		return $_POST[$index];
+		return isset($_POST[$index]) ? $_POST[$index] : $default;
 	}
 
 	/**
   	 * GET Variable
   	 *
-  	 * @param  string
+  	 * @param  string $index
+  	 * @param  mixed $default
   	 * @return string
   	 */
-	public function get($index = NULL)
+	public function get($index = NULL, $default = NULL)
 	{
 		if($index === NULL && !empty($_GET)) {
 			$get = array();
@@ -140,40 +142,43 @@ Class Io {
 			}
 			return $get;
 		}
-		return $_GET[$index];
+		return isset($_GET[$index]) ? $_GET[$index] : $default;
 	}
 
 	/**
 	 * POST and GET
 	 *
 	 * @param string $index
+	 * @param mixed $default
 	 * @return string
 	 */
-	public function post_get($index = NULL)
+	public function post_get($index = NULL, $default = NULL)
 	{
-		$output = $this->post($index);
-		return isset($output) ? $output : $this->get($index);
+		$output = $this->post($index, $default);
+		return $output !== $default ? $output : $this->get($index, $default);
 	}
 
-		/**
+	/**
 	 * GET and POST
 	 *
 	 * @param string $index
+	 * @param mixed $default
 	 * @return string
 	 */
-	public function get_post($index = NULL)
+	public function get_post($index = NULL, $default = NULL)
 	{
-		$output = $this->get($index);
-		return isset($output) ? $output : $this->post($index);
+		$output = $this->get($index, $default);
+		return $output !== $default ? $output : $this->post($index, $default);
 	}
 
 	/**
 	 * Cookie Variable
 	 *
 	 * @param string $index
+	 * @param mixed $default
 	 * @return string
 	 */
-	public function cookie($index = NULL)
+	public function cookie($index = NULL, $default = NULL)
 	{
 		if($index === NULL && !empty($_COOKIE)) {
 			$cookie = array();
@@ -182,7 +187,7 @@ Class Io {
 			}
 			return $cookie;
 		}
-		return $_COOKIE[$index];
+		return isset($_COOKIE[$index]) ? $_COOKIE[$index] : $default;
 	}
 
 	/**
@@ -247,9 +252,10 @@ Class Io {
 	 * Server
 	 *
 	 * @param string $index
+	 * @param mixed $default
 	 * @return string
 	 */
-	public function server($index = NULL)
+	public function server($index = NULL, $default = NULL)
 	{
 		if($index === NULL && !empty($_SERVER)) {
 			$server = array();
@@ -258,7 +264,7 @@ Class Io {
 			}
 			return $server;
 		}
-		return $_SERVER[$index];
+		return isset($_SERVER[$index]) ? $_SERVER[$index] : $default;
 	}
 
 	/**

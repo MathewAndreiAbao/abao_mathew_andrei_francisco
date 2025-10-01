@@ -307,4 +307,20 @@ $config['csrf_token_name']         = 'csrf_test_name';
 $config['csrf_cookie_name']        = 'csrf_cookie_name';
 $config['csrf_expire']             = 7200;
 $config['csrf_regenerate']         = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Database Settings
+|--------------------------------------------------------------------------
+|
+| Database connection settings for the Notes application
+|
+*/
+$config['db_host']                 = 'localhost';
+$config['db_user']                 = 'root';
+$config['db_pass']                 = '';
+$config['db_name']                 = 'notes_app';
+$config['db_driver']               = 'mysql';
+$config['db_port']                 = '3306';
+$config['db_charset']              = 'utf8mb4';
 ?>

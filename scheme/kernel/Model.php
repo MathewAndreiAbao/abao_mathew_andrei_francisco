@@ -234,7 +234,7 @@ class Model {
      * Restore Soft Deleted Row
      *
      * @param int $id
-     * @return void
+     * @return bool
      */
     public function restore($id) {
         if ($this->has_soft_delete) {
@@ -336,7 +336,7 @@ class Model {
      * Bulk Insert
      *
      * @param array $data
-     * @return void
+     * @return bool
      */
     public function bulk_insert($data) {
         if (!empty($data)) {
@@ -350,7 +350,7 @@ class Model {
      *
      * @param array $data
      * @param int $key
-     * @return void
+     * @return bool
      */
     public function bulk_update($data, $key = 'id') {
         if (!empty($data)) {
@@ -511,7 +511,7 @@ class Model {
      * @param string $current_key
      * @param string $related_key
      * @param mixed $current_id
-     * @return void
+     * @return array
      */
     public function many_to_many($related_model, $pivot_table, $current_key, $related_key, $current_id) {
         if (!$current_id) {
