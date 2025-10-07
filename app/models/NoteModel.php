@@ -9,7 +9,6 @@ class NoteModel extends Model {
         $this->call->database();
     }
 
-    // Existing methods (unchanged)...
     public function getNotesByUser($user_id, $search = '', $limit_clause = '') {
         $search = trim($search);
         $sql = "SELECT notes.*, users.email as user_email FROM {$this->table} LEFT JOIN users ON notes.user_id = users.id WHERE notes.user_id = ?";
@@ -168,8 +167,7 @@ class NoteModel extends Model {
         }
     }
 
-    // NEW: Paginated method for users (mirrors TaskModel::findAllByUser)
-    public function findAllByUser($user_id, $page = 1, $per_page = 6, $search = '') {
+       public function findAllByUser($user_id, $page = 1, $per_page = 6, $search = '') {
         $page = max(1, (int)$page);
         $per_page = max(1, (int)$per_page);
         $offset = ($page - 1) * $per_page;
@@ -184,10 +182,10 @@ class NoteModel extends Model {
             $params[] = $like;
         }
 
-        // Get total using COUNT (reuse existing logic)
+      
         $total = $this->getTotalNotes($user_id, $search);
 
-        // Fetch page results
+      
         $limit_clause = "LIMIT " . (int)$offset . "," . (int)$per_page;
         $data = $this->getNotesByUser($user_id, $search, $limit_clause);
 
@@ -200,7 +198,7 @@ class NoteModel extends Model {
         ];
     }
 
-    // NEW: Paginated method for admins (all notes)
+ 
     public function findAll($page = 1, $per_page = 6, $search = '') {
         $page = max(1, (int)$page);
         $per_page = max(1, (int)$per_page);
